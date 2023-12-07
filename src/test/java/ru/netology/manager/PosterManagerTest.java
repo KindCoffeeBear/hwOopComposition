@@ -32,7 +32,17 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void shouldShowSevenLastAddedFilmsWithLimit7() {
+    public void shouldShowEmptyPosterWithoutAddFilm() {
+        PosterManager manager = new PosterManager();
+
+        PosterItem[] expected = {};
+        PosterItem[] actual = manager.findAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldShowFiveLastAddedFilmsWithoutConstructorParameter() {
         PosterManager manager = new PosterManager();
         manager.addFilm(item1);
         manager.addFilm(item2);
@@ -42,15 +52,15 @@ public class PosterManagerTest {
         manager.addFilm(item6);
         manager.addFilm(item7);
 
-        PosterItem[] expected = {item7, item6, item5, item4, item3, item2, item1};
-        PosterItem[] actual = manager.findLast(7);
+        PosterItem[] expected = {item7, item6, item5, item4, item3};
+        PosterItem[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldShowSevenLastAddedFilmsWithLimit8() {
-        PosterManager manager = new PosterManager(8);
+    public void shouldShowSevenLastAddedFilmsWithConstructorParameterEqualSeven() {
+        PosterManager manager = new PosterManager(7);
         manager.addFilm(item1);
         manager.addFilm(item2);
         manager.addFilm(item3);
@@ -60,41 +70,44 @@ public class PosterManagerTest {
         manager.addFilm(item7);
 
         PosterItem[] expected = {item7, item6, item5, item4, item3, item2, item1};
-        PosterItem[] actual = manager.findLast(8);
+        PosterItem[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldShowOneLastAddedFilmsWithLimit1() {
-        PosterManager manager = new PosterManager(1);
+    public void shouldShowThreeLastAddedFilmsWithConstructorParameterEqualSevenAndThreeAddedFilms() {
+        PosterManager manager = new PosterManager(7);
         manager.addFilm(item1);
         manager.addFilm(item2);
         manager.addFilm(item3);
-        manager.addFilm(item4);
-        manager.addFilm(item5);
-        manager.addFilm(item6);
-        manager.addFilm(item7);
 
-        PosterItem[] expected = {item7};
-        PosterItem[] actual = manager.findLast(1);
+        PosterItem[] expected = {item3, item2, item1};
+        PosterItem[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldShowSevenLastAddedFilmsWithLimit0() {
-        PosterManager manager = new PosterManager();
+    public void shouldShowTwoLastAddedFilmsWithConstructorParameterEqualZero() {
+        PosterManager manager = new PosterManager(0);
         manager.addFilm(item1);
         manager.addFilm(item2);
-        manager.addFilm(item3);
-        manager.addFilm(item4);
-        manager.addFilm(item5);
-        manager.addFilm(item6);
-        manager.addFilm(item7);
 
-        PosterItem[] expected = {item7, item6, item5, item4, item3, item2, item1};
-        PosterItem[] actual = manager.findLast(0);
+        PosterItem[] expected = {item2, item1};
+        PosterItem[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldShowTwoLastAddedFilmsWithConstructorParameterEqualMinusOne() {
+        PosterManager manager = new PosterManager(-1);
+        manager.addFilm(item1);
+        manager.addFilm(item2);
+
+        PosterItem[] expected = {item2, item1};
+        PosterItem[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }

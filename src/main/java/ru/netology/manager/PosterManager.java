@@ -4,13 +4,14 @@ import ru.netology.domain.PosterItem;
 
 public class PosterManager {
     private PosterItem[] items = new PosterItem[0];
+    private int limit;
 
     public PosterManager() {
-        findLast(5);
+        this.limit = 5;
     }
 
     public PosterManager(int limit) {
-        findLast(limit);
+        this.limit = limit;
     }
 
     public void addFilm(PosterItem item) {
@@ -28,7 +29,7 @@ public class PosterManager {
         return items;
     }
 
-    public PosterItem[] findLast(int limit) {
+    public PosterItem[] findLast() {
         int resultLength;
 
         if (limit > items.length || limit <= 0) {
